@@ -1,3 +1,10 @@
+---
+name: Bug Report
+about: バグ報告はこちら.
+labels: 'bug'
+
+---
+
 # Bug Report
 
 ---
