@@ -1,7 +1,5 @@
 # Pull Request
 
----
-
 ## Issue Ticket No.
 <!--  Issue番号を記載  -->
 This PR is related to: #XX
