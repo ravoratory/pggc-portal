@@ -1,4 +1,4 @@
-name: Linter-client
+name: Linter-server
 on:
   pull_request:
     branches: 
