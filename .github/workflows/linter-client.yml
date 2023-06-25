@@ -1,0 +1,29 @@
+name: Linter-client
+on:
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - "client/src/**"
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: cd client
+      - run: pnpm install
+      - run: pnpm format
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: cd client
+      - run: pnpm install
+      - run: pnpm lint
