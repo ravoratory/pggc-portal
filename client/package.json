@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint -f stylish",
     "format": "prettier --write src/",
+    "check": "prettier -c src/",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
