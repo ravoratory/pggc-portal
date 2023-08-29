@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  Tester
+  Normal
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  password    String
+  role        Role    @default(Normal)
+  team        Team?   @relation(fields: [teamId], references: [id])
+  teamId      Int?
+  pgritId     String?
+  githubId    String?
+}
+
+model Team {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  score       Int     @default(0)
+  user        User[]
+  history     History[]
+}
+
+enum Difficulty {
+  Tutorial
+  Easy
+  Medium
+  Hard
+  Insane
+}
+
+model Setting {
+  id          Int @id   @default(autoincrement())
+  startedAt   DateTime  @default(now())
+  finishedAt  DateTime  @default(now())
+}
+
+model Problem {
+  id          Int       @id @default(autoincrement())
+  title       String    @unique
+  content     String
+  difficulty  Difficulty
+  history     History[]
+}
+
+enum JudgeStatus {
+  judging
+  correct
+  incorrect
+}
+
+model History {
+  id          Int     @id @default(autoincrement())
+  team        Team    @relation(fields: [teamId], references: [id])
+  problem     Problem @relation(fields: [problemId], references: [id])
+  teamId      Int
+  problemId   Int
+  status      JudgeStatus @default(judging)
+}
+

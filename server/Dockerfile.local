@@ -1,0 +1,5 @@
+FROM --platform=amd64 node:18
+
+RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
+CMD ["pnpm", "start:debug"]

@@ -40,7 +40,13 @@
         }
       }
     ],
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/no-useless-undefined": "off",
     "import/no-duplicates": "error",
-    "unused-imports/no-unused-imports": "error"
+    "import/no-anonymous-default-export": "off",
+    "unused-imports/no-unused-imports": "error",
+    "react/function-component-definition": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/jsx-props-no-spreading": "off"
   }
 }
