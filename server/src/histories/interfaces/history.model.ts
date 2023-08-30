@@ -23,4 +23,7 @@ export class HistoryModel {
 
   @Field(() => Problem)
   problem: Problem;
+
+  @Field(() => Date)
+  createdAt: Date;
 }

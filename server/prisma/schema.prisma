@@ -72,6 +72,7 @@ model History {
   problemId   Int
   status      JudgeStatus @default(judging)
   score       Int
+  createdAt   DateTime @default(now())
 }
 
 model Clarification {
