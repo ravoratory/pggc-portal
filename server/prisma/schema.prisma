@@ -16,6 +16,7 @@ enum Role {
 
 model User {
   id          Int     @id @default(autoincrement())
+  userid      String
   password    String
   role        Role    @default(Normal)
   team        Team?   @relation(fields: [teamId], references: [id])
@@ -30,6 +31,7 @@ model Team {
   score       Int     @default(0)
   user        User[]
   history     History[]
+  clars       Clarification[]
 }
 
 enum Difficulty {
@@ -52,11 +54,13 @@ model Problem {
   content     String
   difficulty  Difficulty
   history     History[]
+  clars       Clarification[]
 }
 
 enum JudgeStatus {
   judging
   correct
+  partial
   incorrect
 }
 
@@ -67,5 +71,16 @@ model History {
   teamId      Int
   problemId   Int
   status      JudgeStatus @default(judging)
+  score       Int
 }
 
+model Clarification {
+  id          Int     @id @default(autoincrement())
+  team        Team    @relation(fields: [teamId], references: [id])
+  problem     Problem @relation(fields: [problemId], references: [id])
+  teamId      Int
+  problemId   Int
+  question    String
+  answer      String?
+  isPublic    Boolean
+}

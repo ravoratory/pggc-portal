@@ -17,7 +17,7 @@ const Problems = () => {
       router.replace("/");
     },
   });
-  const [level, setLevel] = useState<string>("beginner");
+  const [level, setLevel] = useState<string>("tutorial");
   const handleChange = (event, newValue: string) => {
     setLevel(newValue);
   };
