@@ -1,4 +1,4 @@
-import CampaignIcon from '@mui/icons-material/Campaign';
+import CampaignIcon from "@mui/icons-material/Campaign";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -52,8 +52,8 @@ const AdminSidebar = () => {
     {
       text: "CLARIFICATIONS",
       icon: <CampaignIcon />,
-      onClick: onclick("/admin/clarifications")
-    }
+      onClick: onclick("/admin/clarifications"),
+    },
   ];
   return (
     <>

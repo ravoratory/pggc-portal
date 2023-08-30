@@ -72,7 +72,7 @@ const Sidebar = (props: SidebarProps) => {
               </ListItemButton>
             </ListItem>
           ))}
-          {(isAdmin || true) ? <AdminSidebar /> : undefined}
+          {isAdmin || true ? <AdminSidebar /> : undefined}
         </List>
       </Container>
     </div>

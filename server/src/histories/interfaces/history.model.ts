@@ -4,8 +4,8 @@ import { Problem } from "src/problems/interfaces/problem.model";
 import { Team } from "src/teams/interfaces/team.model";
 
 registerEnumType(JudgeStatus, {
-  name: "judgestatus"
-})
+  name: "judgestatus",
+});
 
 @ObjectType()
 export class HistoryModel {
@@ -16,11 +16,11 @@ export class HistoryModel {
   score: number;
 
   @Field(() => JudgeStatus)
-  status: JudgeStatus
+  status: JudgeStatus;
 
   @Field(() => Team)
-  team: Team
+  team: Team;
 
   @Field(() => Problem)
-  problem: Problem
+  problem: Problem;
 }

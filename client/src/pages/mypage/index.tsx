@@ -13,7 +13,7 @@ const Mypage = () => {
     required: true,
     onUnauthenticated() {
       router.replace("/");
-    }
+    },
   });
   if (status !== "authenticated") {
     return undefined;

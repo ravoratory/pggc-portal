@@ -33,11 +33,11 @@ const Problems = () => {
     setLevel(newValue);
   };
   const [result, reexecuteQuery] = useQuery({
-    query: GetAllProblems
+    query: GetAllProblems,
   });
 
   const { data, fetching, error } = result;
-  console.log(data, fetching, error)
+  console.log(data, fetching, error);
   const difficulties = [
     "Tutorial",
     "Beginner",
@@ -80,7 +80,9 @@ const Problems = () => {
             {!fetching &&
               data &&
               data.problems
-                .filter((p) => p.difficulty.toLowerCase() === level.toLowerCase())
+                .filter(
+                  (p) => p.difficulty.toLowerCase() === level.toLowerCase(),
+                )
                 .map((p) => (
                   <ProblemCard
                     key={p.title}

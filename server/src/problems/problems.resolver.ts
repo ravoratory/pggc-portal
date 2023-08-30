@@ -15,11 +15,13 @@ export class ProblemsResolver {
   }
 
   @Query(() => Problem, { name: "problem", nullable: true })
-  async getProblem(@Args({ name: "problemId", type: () => String }) problemId: string) {
+  async getProblem(
+    @Args({ name: "problemId", type: () => String }) problemId: string,
+  ) {
     return this.prismaService.problem.findFirst({
       where: {
-        title: problemId
-      }
+        title: problemId,
+      },
     });
   }
 
@@ -38,22 +40,24 @@ export class ProblemsResolver {
   async updateProblem(@Args("input") input: UpdateProblemInput) {
     return this.prismaService.problem.update({
       where: {
-        title: input.title
+        title: input.title,
       },
       data: {
         title: input.title,
         content: input.content,
-        difficulty: input.difficulty
-      }
-    })
+        difficulty: input.difficulty,
+      },
+    });
   }
 
   @Mutation(() => Problem)
-  async deleteProblem(@Args({ name: "problemId", type: () => String }) problemId: string) {
+  async deleteProblem(
+    @Args({ name: "problemId", type: () => String }) problemId: string,
+  ) {
     return this.prismaService.problem.delete({
       where: {
-        title: problemId
-      }
-    })
+        title: problemId,
+      },
+    });
   }
 }

@@ -23,7 +23,9 @@ const AdminLogin = () => {
                 type="password"
                 color="primary"
               />
-              <Button type="submit" variant="outlined">Login</Button>
+              <Button type="submit" variant="outlined">
+                Login
+              </Button>
             </Form>
           </Content>
         </RightColumn>
@@ -57,7 +59,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  
 `;
 
 export default AdminLogin;

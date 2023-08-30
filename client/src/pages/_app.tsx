@@ -2,15 +2,15 @@
 import "react-toastify/dist/ReactToastify.css";
 
 import "../styles/globals.css";
-import { Client, Provider, cacheExchange, fetchExchange } from "urql";
-import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
+import { Client, Provider, cacheExchange, fetchExchange } from "urql";
 
 const client = new Client({
   url: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-  exchanges: [cacheExchange, fetchExchange]
-})
+  exchanges: [cacheExchange, fetchExchange],
+});
 
 const App = ({ Component, pageProps: { session, ...pageProps } }) => (
   <SessionProvider

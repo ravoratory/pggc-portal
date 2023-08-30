@@ -21,12 +21,12 @@ const authOptions = (
   },
   session: {
     strategy: "jwt",
-    maxAge: 60 * 60 * 24
+    maxAge: 60 * 60 * 24,
   },
   jwt: {
-    maxAge: 60 * 3
+    maxAge: 60 * 3,
   },
-  useSecureCookies: process.env.NODE_ENV === "production"
+  useSecureCookies: process.env.NODE_ENV === "production",
 });
 
 export default (req: NextApiRequest, res: NextApiResponse) =>

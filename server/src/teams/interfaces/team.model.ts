@@ -11,4 +11,3 @@ export class Team {
   @Field(() => Int)
   score: number;
 }
-
