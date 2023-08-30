@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { JudgeStatus } from "@prisma/client";
-import { ProblemModel } from "src/problems/interfaces/problem.model";
-import { TeamModel } from "src/teams/interfaces/team.model";
+import { Problem } from "src/problems/interfaces/problem.model";
+import { Team } from "src/teams/interfaces/team.model";
 
 registerEnumType(JudgeStatus, {
   name: "judgestatus"
@@ -18,9 +18,9 @@ export class HistoryModel {
   @Field(() => JudgeStatus)
   status: JudgeStatus
 
-  @Field(() => TeamModel)
-  team: TeamModel
+  @Field(() => Team)
+  team: Team
 
-  @Field(() => ProblemModel)
-  problem: ProblemModel
+  @Field(() => Problem)
+  problem: Problem
 }

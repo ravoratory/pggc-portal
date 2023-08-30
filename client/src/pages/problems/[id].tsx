@@ -7,8 +7,20 @@ import { useSession } from "next-auth/react";
 import ReactMarkDown from "react-markdown";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { gql, useQuery } from "urql";
 
 import Sidebar from "@/components/orgranisms/sidebar";
+
+const getProblemById = gql`
+  query ($problemId: String!){
+    problem (problemId: $problemId){
+      id
+      title
+      content
+    }
+  }
+`;
+
 
 const Problem = () => {
   const router = useRouter();
@@ -18,21 +30,21 @@ const Problem = () => {
       router.replace("/");
     },
   });
+
+  const [result, reQuery] = useQuery({
+    query: getProblemById,
+    variables: { problemId: router.query.id },
+  });
+
+  const { data, fetching, error } = result;
+  console.log(data, error)
+  const problem = data?.problem;
+  const url = `test@URL/${problem?.title}`;
   const onClickCopy = () => {
-    navigator.clipboard.writeText(mock.url);
+    navigator.clipboard.writeText(`test@URL/${url}`);
     toast.info("Repository URL has copied!")
   }
-
-  if (status !== "authenticated") {
-    return undefined;
-  }
-  const mock = {
-    title: "Quiz",
-    content: `# test
-      markdown test
-    `,
-    url: "test"
-  }
+  
 
   return (
     <main>
@@ -40,7 +52,7 @@ const Problem = () => {
         <title>{router.query.id}</title>
       </Head>
       <Container>
-        <Sidebar admin={session.user?.role === "admin"} />
+        <Sidebar admin={session?.user?.role === "admin"} />
         <RightColumn>
           <Button
             variant="outlined"
@@ -55,23 +67,24 @@ const Problem = () => {
           >
             Back to problems
           </Button>
-          <Title>{mock.title}</Title>
+          {problem === null ? <p>問題が見つかりませんでした。</p>: <><Title>{problem?.title}</Title>
           <Content>
-            <ReactMarkDown>{mock.content}</ReactMarkDown>
+            <ReactMarkDown>{problem?.content}</ReactMarkDown>
           </Content>
-          {mock.url === "" ? (
+          {url === "" ? (
             <p>この問題にはリポジトリがありません</p>
           ) : (
             <>
               <p>問題リポジトリ</p>
               <Footer>
-                {mock.url}
+                {url}
                 <IconButton onClick={onClickCopy}>
                   <ContentCopyIcon sx={{ color: "white" }} />
                 </IconButton>
               </Footer>
             </>
-          )}
+          )}</>}
+          
         </RightColumn>
       </Container>
     </main>

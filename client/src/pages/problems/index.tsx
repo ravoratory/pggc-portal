@@ -5,9 +5,20 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import styled from "styled-components";
+import { gql, useQuery } from "urql";
 
 import ProblemCard from "@/components/molecules/problem-card";
 import Sidebar from "@/components/orgranisms/sidebar";
+
+const GetAllProblems = gql`
+  query {
+    problems {
+      id
+      title
+      difficulty
+    }
+  }
+`;
 
 const Problems = () => {
   const router = useRouter();
@@ -21,36 +32,12 @@ const Problems = () => {
   const handleChange = (event, newValue: string) => {
     setLevel(newValue);
   };
-  if (status !== "authenticated") {
-    return undefined;
-  }
-  const mock = [
-    {
-      level: "beginner",
-      solved: false,
-      title: "test",
-    },
-    {
-      level: "beginner",
-      solved: true,
-      title: "mondaibun",
-    },
-    {
-      level: "beginner",
-      solved: false,
-      title: "test2",
-    },
-    {
-      level: "beginner",
-      solved: true,
-      title: "mondaibun2",
-    },
-    {
-      level: "beginner",
-      solved: true,
-      title: "mondaibun3  ",
-    },
-  ];
+  const [result, reexecuteQuery] = useQuery({
+    query: GetAllProblems
+  });
+
+  const { data, fetching, error } = result;
+  console.log(data, fetching, error)
   const difficulties = [
     "Tutorial",
     "Beginner",
@@ -60,18 +47,17 @@ const Problems = () => {
     "Insane",
   ].map((d) => ({
     diff: d,
-    solved: mock
-      .filter((p) => p.level === d.toLowerCase())
+    solved: (data?.problems ?? [])
+      .filter((p) => p.difficulty === d.toLowerCase())
       .every((p) => p.solved),
   }));
-
   return (
     <main>
       <Head>
         <title>problems</title>
       </Head>
       <Container>
-        <Sidebar admin={session.user?.role === "admin"} />
+        <Sidebar admin={session?.user?.role === "admin"} />
         <RightColumn>
           <h1>PROBLEMS</h1>
           <Tabs value={level} onChange={handleChange}>
@@ -91,11 +77,17 @@ const Problems = () => {
             ))}
           </Tabs>
           <CardContainer>
-            {mock
-              .filter((p) => p.level === level)
-              .map((p) => (
-                <ProblemCard key={p.title} title={p.title} solved={p.solved} />
-              ))}
+            {!fetching &&
+              data &&
+              data.problems
+                .filter((p) => p.difficulty.toLowerCase() === level.toLowerCase())
+                .map((p) => (
+                  <ProblemCard
+                    key={p.title}
+                    title={p.title}
+                    solved={p.solved}
+                  />
+                ))}
           </CardContainer>
         </RightColumn>
       </Container>

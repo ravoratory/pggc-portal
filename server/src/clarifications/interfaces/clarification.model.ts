@@ -1,6 +1,6 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { ProblemModel } from "src/problems/interfaces/problem.model";
-import { TeamModel } from "src/teams/interfaces/team.model";
+import { Problem } from "src/problems/interfaces/problem.model";
+import { Team } from "src/teams/interfaces/team.model";
 
 @ObjectType()
 export class ClarificationModel {
@@ -13,11 +13,11 @@ export class ClarificationModel {
   @Field(() => String)
   answer?: string;
 
-  @Field(() => TeamModel)
-  team: TeamModel;
+  @Field(() => Team)
+  team: Team;
 
-  @Field(() => ProblemModel)
-  problem: ProblemModel;
+  @Field(() => Problem)
+  problem: Problem;
 
   @Field(() => Boolean)
   isPublic: boolean;

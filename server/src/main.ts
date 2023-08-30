@@ -12,6 +12,7 @@ const bootstrap = async () => {
     new FastifyAdapter(),
   );
   const port = process.env.PORT || "5000";
+  app.enableCors();
   await app.listen(port, "0.0.0.0");
 };
 bootstrap();

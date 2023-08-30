@@ -1,10 +1,10 @@
 import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { Role } from "@prisma/client";
 
-import { TeamModel } from "../../teams/interfaces/team.model"
+import { Team } from "../../teams/interfaces/team.model"
 
 @ObjectType()
-export class UserModel {
+export class User {
   @Field(() => Int)
   id: number;
 
@@ -17,8 +17,8 @@ export class UserModel {
   @Field(() => Role)
   role: Role;
 
-  @Field(() => TeamModel)
-  team?: TeamModel;
+  @Field(() => Team)
+  team?: Team;
 
   @Field(() => String)
   pgritId?: string
