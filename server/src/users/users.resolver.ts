@@ -51,9 +51,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async deleteUser(
-    @Args({ name: "Id", type: () => Number }) Id: number,
-  ) {
+  async deleteUser(@Args({ name: "Id", type: () => Number }) Id: number) {
     return this.prismaService.user.delete({
       where: {
         id: Id,
