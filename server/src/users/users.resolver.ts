@@ -15,10 +15,10 @@ export class UsersResolver {
   }
 
   @Query(() => User, { name: "user", nullable: true })
-  async getUser(@Args({ name: "userId", type: () => String }) userId: string) {
+  async getUser(@Args({ name: "Id", type: () => Number }) Id: number) {
     return this.prismaService.user.findFirst({
       where: {
-        userid: userId,
+        id: Id,
       },
     });
   }
@@ -39,7 +39,7 @@ export class UsersResolver {
   async updateUser(@Args("input") input: UpdateUserInput) {
     return this.prismaService.user.update({
       where: {
-        userid: input.userId,
+        id: input.Id,
       },
       data: {
         userid: input.userId,
@@ -52,11 +52,11 @@ export class UsersResolver {
 
   @Mutation(() => User)
   async deleteUser(
-    @Args({ name: "userId", type: () => String }) userId: string,
+    @Args({ name: "Id", type: () => Number }) Id: number,
   ) {
     return this.prismaService.user.delete({
       where: {
-        userid: userId,
+        id: Id,
       },
     });
   }

@@ -3,6 +3,9 @@ import { Role } from "@prisma/client";
 
 @InputType()
 export class UpdateUserInput {
+  @Field({ nullable: false })
+  Id: number;
+
   @Field({ nullable: true })
   pgritId: string;
 
