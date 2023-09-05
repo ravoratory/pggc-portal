@@ -18,6 +18,6 @@ export class UpdateUserInput {
   @Field({ nullable: false })
   password: string;
 
-  @Field(() => Role, { nullable: false })
+  @Field(() => Role, { nullable: true })
   role: Role;
 }

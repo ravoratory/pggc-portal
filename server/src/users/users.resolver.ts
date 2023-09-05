@@ -46,6 +46,7 @@ export class UsersResolver {
         pgritId: input.pgritId,
         githubId: input.githubId,
         password: input.password,
+        role: input.role,
       },
     });
   }
