@@ -12,6 +12,6 @@ export class CreateHistoryInput {
   @Field({ nullable: false })
   score: number;
 
-  @Field({ nullable: false })
+  @Field(() => JudgeStatus, { nullable: false })
   status: JudgeStatus;
 }
