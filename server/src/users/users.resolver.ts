@@ -1,6 +1,9 @@
+import { createHash } from "node:crypto";
+
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { PrismaService } from "src/prisma.service";
 
+import { AttendTeamInput } from "./interfaces/attend-team.input";
 import { CreateUserInput } from "./interfaces/create-user.input";
 import { UpdateUserInput } from "./interfaces/update-user.input";
 import { User } from "./interfaces/user.model";
@@ -30,7 +33,7 @@ export class UsersResolver {
         userid: input.userId,
         pgritId: input.pgritId,
         githubId: input.githubId,
-        password: input.password,
+        password: createHash("sha256").update(input.password).digest("hex"),
       },
     });
   }
@@ -57,6 +60,26 @@ export class UsersResolver {
       where: {
         id: Id,
       },
+    });
+  }
+
+  @Mutation(() => User)
+  async attendTeam(@Args("input") input: AttendTeamInput) {
+    const team = await this.prismaService.team.findFirstOrThrow({
+      where: {
+        id: input.teamId,
+      },
+    });
+    return this.prismaService.user.update({
+      where: {
+        userid: input.userid,
+      },
+      data: {
+        teamId: team.id,
+      },
+      include: {
+        team: true
+      }
     });
   }
 }

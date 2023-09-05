@@ -15,6 +15,6 @@ export class CreateUserInput {
   @Field({ nullable: false })
   password: string;
 
-  @Field(() => Role, { nullable: false })
-  role: Role;
+  @Field(() => Role, { nullable: true })
+  role?: Role;
 }

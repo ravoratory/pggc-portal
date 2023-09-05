@@ -1,4 +1,10 @@
-import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
+import {
+  Field,
+  HideField,
+  Int,
+  ObjectType,
+  registerEnumType,
+} from "@nestjs/graphql";
 import { Role } from "@prisma/client";
 
 import { Team } from "../../teams/interfaces/team.model";
@@ -11,7 +17,7 @@ export class User {
   @Field(() => String)
   userid: string;
 
-  @Field(() => String)
+  @HideField()
   password: string;
 
   @Field(() => Role)

@@ -16,10 +16,10 @@ enum Role {
 
 model User {
   id          Int     @id @default(autoincrement())
-  userid      String
+  userid      String  @unique
   password    String
   role        Role    @default(Normal)
-  team        Team?   @relation(fields: [teamId], references: [id])
+  team        Team?   @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   teamId      Int?
   pgritId     String?
   githubId    String?
@@ -66,8 +66,8 @@ enum JudgeStatus {
 
 model History {
   id          Int     @id @default(autoincrement())
-  team        Team    @relation(fields: [teamId], references: [id])
-  problem     Problem @relation(fields: [problemId], references: [id])
+  team        Team    @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  problem     Problem @relation(fields: [problemId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   teamId      Int
   problemId   Int
   status      JudgeStatus @default(judging)
@@ -77,8 +77,8 @@ model History {
 
 model Clarification {
   id          Int     @id @default(autoincrement())
-  team        Team    @relation(fields: [teamId], references: [id])
-  problem     Problem @relation(fields: [problemId], references: [id])
+  team        Team    @relation(fields: [teamId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  problem     Problem @relation(fields: [problemId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   teamId      Int
   problemId   Int
   question    String
