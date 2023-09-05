@@ -1,19 +1,19 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { JudgeStatus } from "@prisma/client";
-import { Problem } from "src/problems/interfaces/problem.model";
-import { Team } from "src/teams/interfaces/team.model";
-
 @InputType()
 export class UpdateHistoryInput {
   @Field({ nullable: false })
   id: number;
 
-  @Field(() => Team, { nullable: false })
-  team: Team;
+  @Field({ nullable: false })
+  teamId: number;
 
-  @Field(() => Problem, { nullable: false })
-  problem: Problem;
+  @Field({ nullable: false })
+  problemId: number;
 
-  @Field(() => JudgeStatus, { nullable: false })
+  @Field({ nullable: true })
+  score: number;
+
+  @Field(() => JudgeStatus, { nullable: true })
   status: JudgeStatus;
 }

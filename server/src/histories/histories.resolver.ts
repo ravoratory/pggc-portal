@@ -28,8 +28,17 @@ export class HistoriesResolver {
   async createHistory(@Args("input") input: CreateHistoryInput) {
     return this.prismaService.history.create({
       data: {
-        team: input.team,
-        problem: input.problem,
+        team: {
+          connect: {
+            id: input.teamId,
+          },
+        },
+        problem: {
+          connect: {
+            id: input.problemId,
+          },
+        },
+        score: input.score,
         status: input.status,
       },
     });
@@ -42,8 +51,17 @@ export class HistoriesResolver {
         id: input.id,
       },
       data: {
-        team: input.team,
-        problem: input.problem,
+        team: {
+          connect: {
+            id: input.teamId,
+          },
+        },
+        problem: {
+          connect: {
+            id: input.problemId,
+          },
+        },
+        score: input.score,
         status: input.status,
       },
     });
