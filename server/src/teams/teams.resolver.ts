@@ -15,9 +15,7 @@ export class TeamsResolver {
   }
 
   @Query(() => Team, { name: "team", nullable: true })
-  async getTeam(
-    @Args({ name: "teamId", type: () => Int }) teamId: number,
-  ) {
+  async getTeam(@Args({ name: "teamId", type: () => Int }) teamId: number) {
     return this.prismaService.team.findFirst({
       where: {
         id: teamId,
@@ -29,7 +27,7 @@ export class TeamsResolver {
   async createTeam(@Args("input") input: CreateTeamInput) {
     return this.prismaService.team.create({
       data: {
-        name: input.name
+        name: input.name,
       },
     });
   }
@@ -42,15 +40,13 @@ export class TeamsResolver {
       },
       data: {
         name: input.name === null ? undefined : input.name,
-        score: input.score === null ? undefined : input.score
+        score: input.score === null ? undefined : input.score,
       },
     });
   }
 
   @Mutation(() => Team)
-  async deleteTeam(
-    @Args({ name: "teamId", type: () => Int }) teamId: number,
-  ) {
+  async deleteTeam(@Args({ name: "teamId", type: () => Int }) teamId: number) {
     return this.prismaService.team.delete({
       where: {
         id: teamId,
