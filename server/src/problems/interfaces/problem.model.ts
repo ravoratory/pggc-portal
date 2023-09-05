@@ -1,7 +1,14 @@
-import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
+import {
+  Field,
+  InputType,
+  Int,
+  ObjectType,
+  registerEnumType,
+} from "@nestjs/graphql";
 import { Difficulty } from "@prisma/client";
 
-@ObjectType()
+@ObjectType("Problem")
+@InputType("ProblemInput")
 export class Problem {
   @Field(() => Int)
   id: number;
