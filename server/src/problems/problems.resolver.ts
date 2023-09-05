@@ -5,7 +5,7 @@ import { CreateProblemInput } from "./interfaces/create-problem.input";
 import { Problem } from "./interfaces/problem.model";
 import { UpdateProblemInput } from "./interfaces/update-problem.input";
 
-@Resolver(() => CreateProblemInput)
+@Resolver(() => Problem)
 export class ProblemsResolver {
   constructor(private readonly prismaService: PrismaService) {}
 
