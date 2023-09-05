@@ -1,5 +1,6 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { JudgeStatus } from "@prisma/client";
+
 @InputType()
 export class UpdateHistoryInput {
   @Field({ nullable: false })

@@ -4,6 +4,7 @@ import { PrismaService } from "src/prisma.service";
 import { CreateHistoryInput } from "./interfaces/create-history.input";
 import { HistoryModel } from "./interfaces/history.model";
 import { UpdateHistoryInput } from "./interfaces/update-history.input";
+
 @Resolver(() => CreateHistoryInput)
 export class HistoriesResolver {
   constructor(private readonly prismaService: PrismaService) {}
