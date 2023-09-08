@@ -46,7 +46,7 @@ const Ranking = () => {
           {teams.map((team:any) => ({
               name: team.name,
               score: rankingBoard.find((r:any) => team.id === r.teamId)?.score ?? 0
-            })).sort((a: any, b: any) => b.score - a.score).map((team: any, index: number) => <p key={team.name}>{index + 1}: {team.name}</p>)}
+          })).sort((a: any, b: any) => b.score - a.score).map((team: any, index: number) => <p key={team.name}>{index + 1}. {team.name}:{team.score}pt</p>)}
         </RightColumn>
       </Container>
     </main>
