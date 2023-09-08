@@ -26,7 +26,7 @@ export class ClarificationsResolver {
       });
     return this.prismaService.clarification.findMany({
       where: {
-        OR: [{ teamId: user.team.id }],
+        OR: [{ team: user.team }, {isPublic: true}],
       },
       include: {
         team: true,
