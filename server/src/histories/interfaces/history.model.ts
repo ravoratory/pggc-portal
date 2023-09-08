@@ -12,7 +12,7 @@ export class HistoryModel {
   @Field(() => Int)
   id: number;
 
-  @Field(() => Int)
+  @Field(() => Int, {nullable: true})
   score: number;
 
   @Field(() => JudgeStatus)
@@ -24,6 +24,12 @@ export class HistoryModel {
   @Field(() => Problem, { nullable: true })
   problem: Problem;
 
+  @Field(() => Int, { nullable: true })
+  teamId: number;
+
   @Field(() => Date)
   createdAt: Date;
+
+  @Field(() => Date)
+  updatedAt: Date;
 }

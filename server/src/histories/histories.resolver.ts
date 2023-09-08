@@ -54,6 +54,25 @@ export class HistoriesResolver {
   @UseGuards(JwtAuthGuard)
   @Mutation(() => HistoryModel)
   async createHistory(@Args("input") input: CreateHistoryInput) {
+    const past = await this.prismaService.history.findFirst({
+      where: {
+        teamId: input.teamId,
+        problemId: input.problemId
+      }
+    });
+    if (past) {
+      const history = this.prismaService.history.update({
+        where: {
+          id: past.id
+        },
+        data: {
+          score: input.score,
+          status: input.status,
+        },
+      });
+      pubsub.publish("scoreboard", { scoreboard: history });
+      return history;
+    } 
     const history = await this.prismaService.history.create({
       data: {
         team: {
@@ -129,22 +148,18 @@ export class HistoriesResolver {
 
   @UseGuards(JwtAuthGuard)
   @Query(() => [HistoryModel])
-  async rankingBoard(
-    @Args({ name: "teamId", type: () => Number }) teamId: number,
-  ) {
-    return this.prismaService.history.findMany({
-      where: {
-        createdAt: {
-          lte: new Date("2023/09/09 7:00:00"),
-        },
-        teamId,
-        OR: [{ status: "correct" }, { status: "partial" }],
+  async rankingBoard() {
+    const ranking = await this.prismaService.history.groupBy({
+      by: ["teamId", "score"],
+      _sum: {
+        score: true,
       },
-      include: {
-        team: true,
-        problem: true,
-      },
-    });
+      orderBy: {
+        score: "desc",
+      }
+    })
+    console.log(ranking)
+    return ranking;
   }
 
   @UseGuards(JwtAuthGuard)

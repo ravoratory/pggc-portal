@@ -75,7 +75,6 @@ const AdminProblem = () => {
             value={problemId}
             label="TeamID"
             onChange={({ target }) => setProblemId(Number(target.value))}
-            sx={{ backgroundColor: "white" }}
           >
             {problems.map((problem: any) => (
               <MenuItem key={`problem-${problem.id}`} value={problem.id}>
@@ -88,7 +87,6 @@ const AdminProblem = () => {
             value={teamId}
             label="TeamID"
             onChange={({ target }) => setTeamId(Number(target.value))}
-            sx={{ backgroundColor: "white" }}
           >
             {teams.map((team: any) => (
               <MenuItem key={`team-${team.id}`} value={team.id}>
@@ -105,7 +103,6 @@ const AdminProblem = () => {
             InputLabelProps={{
               shrink: true,
             }}
-            sx={{ backgroundColor: "white" }}
           />
           <Select
             labelId="demo-simple-select-label"
@@ -113,7 +110,6 @@ const AdminProblem = () => {
             value={status}
             label="status"
             onChange={({ target }) => setStatus(target.value)}
-            sx={{ backgroundColor: "white" }}
           >
             <MenuItem value="judging">judging(判定中)</MenuItem>
             <MenuItem value="correct">correct(正解)</MenuItem>
