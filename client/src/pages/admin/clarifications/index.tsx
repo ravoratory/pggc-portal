@@ -82,7 +82,7 @@ const AdminClar = () => {
             <TableBody>
               {clars.map((clar: any) => (
                 <TableRow key={clar.id}>
-                  <TableCell sx={{ color: "white" }}>{clar.id}</TableCell>
+                  <TableCell sx={{ color: "white" }}><a href={`/admin/clarifications/${clar.id}`}>{clar.id}</a></TableCell>
                   <TableCell
                     sx={{ color: "white" }}
                   >{`${clar.isPublic}`}</TableCell>
