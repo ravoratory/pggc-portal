@@ -65,7 +65,7 @@ const AdminProblem = () => {
         isPublic,
       },
     });
-    router.push("/admin/clarifications");
+    router.push("/clarification");
   };
   const problems = data?.data?.problems ?? [];
   const teams = data?.data?.teams ?? [];
