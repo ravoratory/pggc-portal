@@ -89,21 +89,11 @@ const AdminProblem = () => {
             value={problemId}
             label="TeamID"
             onChange={({ target }) => setProblemId(Number(target.value))}
-            sx={{ backgroundColor: "white" }}
           >
             {problems.map(
               (problem: {
                 id: string | number | readonly string[] | undefined;
-                title:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | PromiseLikeOfReactNode
-                  | null
-                  | undefined;
+                title: string
               }) => (
                 <MenuItem key={`problem-${problem.id}`} value={problem.id}>
                   {problem.title}
@@ -116,21 +106,11 @@ const AdminProblem = () => {
             value={teamId}
             label="TeamID"
             onChange={({ target }) => setTeamId(Number(target.value))}
-            sx={{ backgroundColor: "white" }}
           >
             {teams.map(
               (team: {
                 id: string | number | readonly string[] | undefined;
-                name:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | PromiseLikeOfReactNode
-                  | null
-                  | undefined;
+                name: string
               }) => (
                 <MenuItem key={`team-${team.id}`} value={team.id}>
                   {team.name}
@@ -142,7 +122,6 @@ const AdminProblem = () => {
             id="question"
             label="Question"
             variant="filled"
-            sx={{ backgroundColor: "white" }}
             multiline
             rows={16}
             value={question}
