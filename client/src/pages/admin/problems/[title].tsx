@@ -44,10 +44,15 @@ const AdminProblem = () => {
     query: getProblem,
     variables: { title: router.query.title }
   })
-  console.log(problem)
-  const [title, setTitle] = useState<string>(problem.data.problem.title);
-  const [content, setContent] = useState<string>(problem.data.problem.content);
-  const [difficulty, setDifficulty] = useState<string>(problem.data.problem.difficulty);
+
+
+  const [title, setTitle] = useState<string>(problem?.data?.problem.title ?? "");
+  const [content, setContent] = useState<string>(
+    problem?.data?.problem.content ?? "",
+  );
+  const [difficulty, setDifficulty] = useState<string>(
+    problem?.data?.problem.difficulty ?? "",
+  );
   const handleSubmit = () => {
     setProblem({
       input: {
