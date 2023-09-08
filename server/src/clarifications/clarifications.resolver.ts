@@ -9,6 +9,9 @@ import { CurrentUser } from "src/users/user.decorator";
 
 import { ClarificationModel } from "./interfaces/clarification.model";
 
+interface RequestUser extends User {
+  teamId: number;
+}
 
 @Resolver(() => ClarificationModel)
 export class ClarificationsResolver {
@@ -16,7 +19,7 @@ export class ClarificationsResolver {
 
   @UseGuards(JwtAuthGuard)
   @Query(() => [ClarificationModel], { name: "clarifications", nullable: true })
-  async getClarifications(@CurrentUser() user: User) {
+  async getClarifications(@CurrentUser() user: RequestUser) {
     if (user.role === "Admin")
       return this.prismaService.clarification.findMany({
         include: {
@@ -24,10 +27,9 @@ export class ClarificationsResolver {
           problem: true,
         },
       });
-    console.log(user.team.id)
     return this.prismaService.clarification.findMany({
       where: {
-        OR: [{ teamId: user.team.id }, {isPublic: true}],
+        OR: [{ teamId: user.teamId }, { isPublic: true }],
       },
       include: {
         team: true,
@@ -48,8 +50,9 @@ export class ClarificationsResolver {
         teamId: user.role === "Admin" ? undefined : user.team.id,
       },
       include: {
-        team: true, problem: true
-      }
+        team: true,
+        problem: true,
+      },
     });
   }
 
