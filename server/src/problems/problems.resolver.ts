@@ -20,11 +20,16 @@ export class ProblemsResolver {
     const started =
       Date.now().toLocaleString("JST") >=
       new Date("2023/09/09 13:00").toLocaleString("JST");
-    const problems = await this.prismaService.problem.findMany({
-      where: {
-        difficulty: started || user.role === "Admin" ? undefined : "Tutorial",
-      },
-    });
+    let problems: Problem[];
+    if (started || user.role === "Admin") {
+      problems = await this.prismaService.problem.findMany();
+    } else {
+      problems = await this.prismaService.problem.findMany({
+        where: {
+          difficulty: "Tutorial",
+        },
+      });
+    } 
     // eslint-disable-next-line no-return-assign
     return problems.map(async (p: ProblemsReponse) => {
       // eslint-disable-next-line no-param-reassign
