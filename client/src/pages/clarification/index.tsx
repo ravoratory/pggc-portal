@@ -61,7 +61,7 @@ const Clar = () => {
           <h1>CLARIFICATIONS</h1>
           <Button
             variant="contained"
-            onClick={() => router.push("/clarifications/create")}
+            onClick={() => router.push("/clarification/create")}
           >
             Create clarification
           </Button>

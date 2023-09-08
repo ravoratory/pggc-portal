@@ -1,7 +1,5 @@
 import {
   Button,
-  Checkbox,
-  FormControlLabel,
   MenuItem,
   Select,
   TextField,
@@ -52,17 +50,15 @@ const AdminProblem = () => {
   });
   const [result, setClar] = useMutation(createClarification);
 
-  const [teamId, setTeamId] = useState<number>(0);
   const [problemId, setProblemId] = useState<number>(0);
   const [question, setQuestion] = useState<string>("");
-  const [isPublic, setIsPublic] = useState<boolean>(false);
   const handleSubmit = () => {
     setClar({
       input: {
-        teamId,
+        teamId: session?.user?.team.id ?? 0,
         problemId,
         question,
-        isPublic,
+        isPublic: false
       },
     });
     router.push("/admin/clarifications");
@@ -96,23 +92,6 @@ const AdminProblem = () => {
               ),
             )}
           </Select>
-          <Select
-            id="select-team"
-            value={teamId}
-            label="TeamID"
-            onChange={({ target }) => setTeamId(Number(target.value))}
-          >
-            {teams.map(
-              (team: {
-                id: string | number | readonly string[] | undefined;
-                name: string;
-              }) => (
-                <MenuItem key={`team-${team.id}`} value={team.id}>
-                  {team.name}
-                </MenuItem>
-              ),
-            )}
-          </Select>
           <TextField
             id="question"
             label="Question"
@@ -123,18 +102,6 @@ const AdminProblem = () => {
             onChange={({ target }) => {
               setQuestion(target.value);
             }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={isPublic}
-                value={isPublic}
-                onChange={({ target }) => {
-                  setIsPublic(!isPublic);
-                }}
-              />
-            }
-            label="isPublic"
           />
           <Button onClick={handleSubmit} type="button">
             追加
