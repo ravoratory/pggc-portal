@@ -42,12 +42,12 @@ export class ClarificationsResolver {
   @Query(() => ClarificationModel, { name: "clarification", nullable: true })
   async getClarification(
     @Args({ name: "clarificationId", type: () => Int }) clarificationId: number,
-    @CurrentUser() user: User,
+    @CurrentUser() user: RequestUser,
   ) {
     return this.prismaService.clarification.findFirst({
       where: {
         id: clarificationId,
-        teamId: user.role === "Admin" ? undefined : user.team.id,
+        teamId: user.role === "Admin" ? undefined : user.teamId,
       },
       include: {
         team: true,
