@@ -158,7 +158,6 @@ export class HistoriesResolver {
         score: "desc",
       }
     })
-    console.log(ranking)
     return ranking;
   }
 
