@@ -51,7 +51,7 @@ const Adminproblem = () => {
       <Container>
         <Sidebar admin />
         <RightColumn>
-          <h1>ADMIN/problemS</h1>
+          <h1>ADMIN/PROBLEMS</h1>
           <Button
             variant="contained"
             onClick={() => router.push("/admin/problems/create")}
