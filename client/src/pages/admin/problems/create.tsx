@@ -56,7 +56,6 @@ const AdminProblem = () => {
             id="filled-basic"
             label="title"
             variant="filled"
-            sx={{ backgroundColor: "white" }}
             value={title}
             onChange={({ target }) => {
               setTitle(target.value);
@@ -66,7 +65,6 @@ const AdminProblem = () => {
             id="content"
             label="content"
             variant="filled"
-            sx={{ backgroundColor: "white" }}
             multiline
             rows={16}
             value={content}
@@ -80,7 +78,6 @@ const AdminProblem = () => {
             value={difficulty}
             label="Age"
             onChange={({ target }) => setDifficulty(target.value)}
-            sx={{ backgroundColor: "white" }}
           >
             <MenuItem value="Tutorial">Tutorial</MenuItem>
             <MenuItem value="Beginner">Beginner</MenuItem>
