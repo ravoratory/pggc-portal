@@ -56,7 +56,7 @@ const Clar = () => {
         <title>clarifications</title>
       </Head>
       <Container>
-        <Sidebar admin={session.user?.role!== "admin"} />
+        <Sidebar admin={session.user?.role === "admin"} />
         <RightColumn>
           <h1>CLARIFICATIONS</h1>
           <Button

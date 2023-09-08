@@ -38,7 +38,7 @@ const Problem = () => {
   const { data, fetching, error } = result;
 
   const problem = data?.problem;
-  const url = session?.user.team.name
+  const url = session?.user?.team?.name
     ? `${session?.user.team.name}@repository.tkm.dev:${problem?.title}.git`
     : "";
   const onClickCopy = () => {
