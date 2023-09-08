@@ -18,10 +18,10 @@ export class HistoryModel {
   @Field(() => JudgeStatus)
   status: JudgeStatus;
 
-  @Field(() => Team)
+  @Field(() => Team, { nullable: true })
   team: Team;
 
-  @Field(() => Problem)
+  @Field(() => Problem, { nullable: true })
   problem: Problem;
 
   @Field(() => Date)

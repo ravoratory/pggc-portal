@@ -4,7 +4,7 @@ import { Role } from "@prisma/client";
 @InputType()
 export class UpdateUserInput {
   @Field({ nullable: false })
-  Id: number;
+  id: number;
 
   @Field({ nullable: true })
   pgritId: string;
@@ -12,11 +12,8 @@ export class UpdateUserInput {
   @Field({ nullable: true })
   githubId: string;
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   userId: string;
-
-  @Field({ nullable: false })
-  password: string;
 
   @Field(() => Role, { nullable: true })
   role: Role;

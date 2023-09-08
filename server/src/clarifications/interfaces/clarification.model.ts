@@ -8,7 +8,7 @@ export class ClarificationModel {
   id: number;
 
   @Field(() => String)
-  quesiton: string;
+  question: string;
 
   @Field(() => String)
   answer?: string;

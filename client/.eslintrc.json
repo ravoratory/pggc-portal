@@ -47,6 +47,7 @@
     "unused-imports/no-unused-imports": "error",
     "react/function-component-definition": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "react/jsx-props-no-spreading": "off"
+    "react/jsx-props-no-spreading": "off",
+    "no-param-reassign": "off"
   }
 }

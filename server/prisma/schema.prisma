@@ -36,6 +36,7 @@ model Team {
 
 enum Difficulty {
   Tutorial
+  Beginner
   Easy
   Medium
   Hard

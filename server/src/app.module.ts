@@ -6,6 +6,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AuthModule } from "./auth/auth.module";
 import { ClarificationsModule } from "./clarifications/clarifications.module";
 import { HistoriesModule } from "./histories/histories.module";
 import { PrismaService } from "./prisma.service";
@@ -20,6 +21,9 @@ import { UsersModule } from "./users/users.module";
       driver: ApolloDriver,
       playground: process.env.NODE_ENV === "development",
       autoSchemaFile: path.join(process.cwd(), "src/schema.gql"),
+      subscriptions: {
+        "graphql-ws": true,
+      },
     }),
     ProblemsModule,
     UsersModule,
@@ -27,6 +31,7 @@ import { UsersModule } from "./users/users.module";
     SettingsModule,
     HistoriesModule,
     ClarificationsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

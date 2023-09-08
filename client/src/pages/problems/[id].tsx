@@ -36,14 +36,16 @@ const Problem = () => {
   });
 
   const { data, fetching, error } = result;
-  console.log(data, error);
+
   const problem = data?.problem;
-  const url = `test@URL/${problem?.title}`;
+  const url = session?.user.team.name
+    ? `${session?.user.team.name}@repository.tkm.dev:${problem?.title}.git`
+    : "";
   const onClickCopy = () => {
-    navigator.clipboard.writeText(`test@URL/${url}`);
+    navigator.clipboard.writeText(url);
     toast.info("Repository URL has copied!");
   };
-
+  console.log(data);
   return (
     <main>
       <Head>
@@ -74,7 +76,7 @@ const Problem = () => {
                 <ReactMarkDown>{problem?.content}</ReactMarkDown>
               </Content>
               {url === "" ? (
-                <p>この問題にはリポジトリがありません</p>
+                <p>読み込み中…</p>
               ) : (
                 <>
                   <p>問題リポジトリ</p>

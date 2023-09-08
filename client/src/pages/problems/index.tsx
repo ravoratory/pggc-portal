@@ -16,6 +16,7 @@ const GetAllProblems = gql`
       id
       title
       difficulty
+      isSolved
     }
   }
 `;
@@ -37,20 +38,16 @@ const Problems = () => {
   });
 
   const { data, fetching, error } = result;
-  console.log(data, fetching, error);
-  const difficulties = [
-    "Tutorial",
-    "Beginner",
-    "Easy",
-    "Medium",
-    "Hard",
-    "Insane",
-  ].map((d) => ({
-    diff: d,
-    solved: (data?.problems ?? [])
-      .filter((p) => p.difficulty === d.toLowerCase())
-      .every((p) => p.solved),
-  }));
+  const problems = data?.problems ?? [];
+  console.log(problems);
+  const difficulties = ["Tutorial", "Beginner", "Easy", "Medium", "Hard"].map(
+    (d) => ({
+      diff: d,
+      solved:
+        problems.filter((p) => p.difficulty === d).every((p) => p.isSolved) &&
+        problems.some((p) => p.difficulty === d),
+    }),
+  );
   return (
     <main>
       <Head>
@@ -78,8 +75,7 @@ const Problems = () => {
           </Tabs>
           <CardContainer>
             {!fetching &&
-              data &&
-              data.problems
+              problems
                 .filter(
                   (p) => p.difficulty.toLowerCase() === level.toLowerCase(),
                 )
@@ -87,7 +83,7 @@ const Problems = () => {
                   <ProblemCard
                     key={p.title}
                     title={p.title}
-                    solved={p.solved}
+                    solved={p.isSolved}
                   />
                 ))}
           </CardContainer>

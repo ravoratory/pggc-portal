@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { Args, Mutation, Query, Int, Resolver } from "@nestjs/graphql";
 import { PrismaService } from "src/prisma.service";
 
 import { CreateTeamInput } from "./interfaces/create-team.input";
+import { TeamMember } from "./interfaces/team-member.response";
 import { Team } from "./interfaces/team.model";
 import { UpdateTeamInput } from "./interfaces/update-team.input";
 
@@ -9,18 +11,32 @@ import { UpdateTeamInput } from "./interfaces/update-team.input";
 export class TeamsResolver {
   constructor(private readonly prismaService: PrismaService) {}
 
-  @Query(() => [Team], { name: "teams", nullable: true })
+  @Query(() => [TeamMember], { name: "teams", nullable: true })
   async getTeams() {
-    return this.prismaService.team.findMany();
+    const teams = await this.prismaService.team.findMany();
+    return teams.map(async (team: any) => {
+      team.members = await this.prismaService.user.findMany({
+        where: {
+          teamId: team.id,
+        },
+      });
+      return team;
+    });
   }
 
-  @Query(() => Team, { name: "team", nullable: true })
+  @Query(() => TeamMember, { name: "team", nullable: true })
   async getTeam(@Args({ name: "teamId", type: () => Int }) teamId: number) {
-    return this.prismaService.team.findFirst({
+    const team = await this.prismaService.team.findFirst({
       where: {
         id: teamId,
       },
     });
+    (team as any).members = await this.prismaService.user.findMany({
+      where: {
+        teamId: team.id,
+      },
+    });
+    return team;
   }
 
   @Mutation(() => Team)

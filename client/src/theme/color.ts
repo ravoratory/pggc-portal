@@ -1,6 +1,14 @@
-const colors = {
-  black: "#2c2c2c",
-  blue: "#232C79",
-};
+import { ThemeOptions } from "@mui/material/styles";
 
-export default colors;
+const themeOptions: ThemeOptions = {
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#232C79",
+    },
+    secondary: {
+      main: "#f50057",
+    },
+  },
+};
+export default themeOptions;

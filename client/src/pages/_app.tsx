@@ -2,15 +2,13 @@
 import "react-toastify/dist/ReactToastify.css";
 
 import "../styles/globals.css";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
-import { Client, Provider, cacheExchange, fetchExchange } from "urql";
 
-const client = new Client({
-  url: `${process.env.NEXT_PUBLIC_API_URL}/graphql`,
-  exchanges: [cacheExchange, fetchExchange],
-});
+import GraphqlProvider from "@/providers/graphql";
+import { themeOptions } from "@/theme/color";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }) => (
   <SessionProvider
@@ -18,7 +16,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => (
     // Re-fetch session every 5 minutes
     refetchInterval={5 * 60}
   >
-    <Provider value={client}>
+    <GraphqlProvider>
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -31,10 +29,11 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => (
         pauseOnHover
         theme="dark"
       />
-
-      <Component {...pageProps} />
+      <ThemeProvider theme={createTheme(themeOptions)}>
+        <Component {...pageProps} />
+      </ThemeProvider>
       <Analytics />
-    </Provider>
+    </GraphqlProvider>
   </SessionProvider>
 );
 

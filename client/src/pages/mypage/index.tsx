@@ -2,10 +2,30 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+import { gql, useQuery } from "urql";
 
 import ScoreBoard from "@/components/orgranisms/scoreboard";
 import Sidebar from "@/components/orgranisms/sidebar";
 import SolvedTable from "@/components/orgranisms/solved-table";
+
+const getMypageInfo = gql`
+  query ($teamId: Float!) {
+    teamMember(teamId: $teamId) {
+      id
+      userid
+    }
+    teamHistory(teamId: $teamId) {
+      id
+      problem {
+        id
+        title
+        difficulty
+      }
+      score
+      createdAt
+    }
+  }
+`;
 
 const Mypage = () => {
   const router = useRouter();
@@ -15,30 +35,18 @@ const Mypage = () => {
       router.replace("/");
     },
   });
+  console.log(session);
+  const [result, reexecute] = useQuery({
+    query: getMypageInfo,
+    variables: { teamId: session?.user?.team?.id ?? 0 },
+  });
+
   if (status !== "authenticated") {
     return undefined;
   }
 
-  const mock = [
-    {
-      title: "test",
-      solved: "13:00",
-      level: "easy",
-      point: 5,
-    },
-    {
-      title: "test",
-      solved: "13:00",
-      level: "easy",
-      point: 5,
-    },
-    {
-      title: "test",
-      solved: "13:00",
-      level: "easy",
-      point: 5,
-    },
-  ];
+  const data = result.data ?? { teamHistory: [], teamMember: [] };
+  console.log(data);
   return (
     <main>
       <Head>
@@ -49,12 +57,9 @@ const Mypage = () => {
         <RightColumn>
           <h1>MYPAGE</h1>
           <Container>
-            <ScoreBoard
-              members={[{ name: "Takumah" }, { name: "Ravie403" }]}
-              chartData={[]}
-            />
+            <ScoreBoard members={data.teamMember} chartData={[]} />
           </Container>
-          <SolvedTable problems={mock} />
+          <SolvedTable problems={data.teamHistory} />
         </RightColumn>
       </Container>
     </main>

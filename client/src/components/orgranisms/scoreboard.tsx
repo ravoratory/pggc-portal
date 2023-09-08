@@ -12,7 +12,7 @@ import {
 import styled from "styled-components";
 
 interface User {
-  name: string;
+  userid: string;
 }
 
 interface ScoreBoardProps {
@@ -54,11 +54,11 @@ const ScoreBoard = (props: ScoreBoardProps) => {
         <h3>Team Members</h3>
         <List>
           {members.map((member) => (
-            <ListItem key={member.name}>
+            <ListItem key={member.userid}>
               <ListItemIcon sx={{ color: "white" }}>
                 <PersonOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary={member.name} />
+              <ListItemText primary={member.userid} />
             </ListItem>
           ))}
         </List>

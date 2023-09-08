@@ -1,8 +1,8 @@
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LeaderboardOutlinedIcon from "@mui/icons-material/LeaderboardOutlined";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
-import ShowChartIcon from "@mui/icons-material/ShowChart";
 import {
   List,
   ListItem,
@@ -47,10 +47,9 @@ const Sidebar = (props: SidebarProps) => {
     },
     {
       text: "SCOREBOARD",
-      icon: <ShowChartIcon />,
+      icon: <DashboardIcon />,
       onClick: onclick("/scoreboard"),
     },
-
     {
       text: "RANKING",
       icon: <LeaderboardOutlinedIcon />,
@@ -72,7 +71,7 @@ const Sidebar = (props: SidebarProps) => {
               </ListItemButton>
             </ListItem>
           ))}
-          {isAdmin || true ? <AdminSidebar /> : undefined}
+          {isAdmin ? <AdminSidebar /> : undefined}
         </List>
       </Container>
     </div>

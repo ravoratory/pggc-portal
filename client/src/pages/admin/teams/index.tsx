@@ -1,11 +1,33 @@
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import styled from "styled-components";
+import { gql, useQuery } from "urql";
 
 import Sidebar from "@/components/orgranisms/sidebar";
 
-const AdminHome = () => {
+const getTeams = gql`
+  query {
+    teams {
+      id
+      name
+      members {
+        id
+        userid
+      }
+    }
+  }
+`;
+
+const AdminTeam = () => {
   const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
@@ -13,22 +35,52 @@ const AdminHome = () => {
       router.replace("/");
     },
   });
+  const [result, reexecute] = useQuery({
+    query: getTeams,
+  });
+
   if (status !== "authenticated") {
     return undefined;
   }
   if (session.user?.role !== "admin") {
-    // TODO
-    // router.push("/404");
+    router.replace("/404");
   }
+  const teams = result?.data?.teams ?? [];
   return (
     <main>
       <Head>
-        <title>admin</title>
+        <title>admin/teams</title>
       </Head>
       <Container>
         <Sidebar admin />
         <RightColumn>
-          <h1>ADMIN</h1>
+          <h1>ADMIN/TEAMS</h1>
+          <Button
+            variant="contained"
+            onClick={() => router.push("/admin/teams/create")}
+          >
+            Create Team
+          </Button>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{ color: "white" }}>id</TableCell>
+                <TableCell sx={{ color: "white" }}>name</TableCell>
+                <TableCell sx={{ color: "white" }}>member</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {teams.map((team) => (
+                <TableRow key={team.id}>
+                  <TableCell sx={{ color: "white" }}>{team.id}</TableCell>
+                  <TableCell sx={{ color: "white" }}>{team.name}</TableCell>
+                  <TableCell sx={{ color: "white" }}>
+                    {team.members.map((member) => member.userid).join(",")}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </RightColumn>
       </Container>
     </main>
@@ -45,4 +97,4 @@ const Container = styled.div`
   display: flex;
 `;
 
-export default AdminHome;
+export default AdminTeam;

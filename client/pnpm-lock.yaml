@@ -35,6 +35,9 @@ dependencies:
   '@types/styled-components':
     specifier: ^5.1.26
     version: 5.1.26
+  '@urql/exchange-auth':
+    specifier: ^2.1.6
+    version: 2.1.6(graphql@16.7.1)
   '@vercel/analytics':
     specifier: ^1.0.1
     version: 1.0.1
@@ -3461,8 +3464,8 @@ packages:
       react: 18.2.0
     dev: false
 
-  /@mui/styled-engine-sc@5.14.7(@types/styled-components@5.1.26)(styled-components@5.3.11):
-    resolution: {integrity: sha512-so3X2N0SxpXjc61+d6s0aG11OVF9XTDrKusaXd8YE1d9fzEuIGEpvOXizaMJZThqkTqGzNKQuXFEpC55Vb0gdw==}
+  /@mui/styled-engine-sc@5.14.8(@types/styled-components@5.1.26)(styled-components@5.3.11):
+    resolution: {integrity: sha512-s4bu3oqE2s3eeB6v/03NRB0N0yswA74Azn6N53PPq87dsvGOyvKLj707bJe+9HfbcbkdksQXP+2NUDmtmUDcig==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@types/styled-components': ^5.1.14
@@ -3497,7 +3500,7 @@ packages:
       '@emotion/react': 11.11.1(@types/react@18.2.14)(react@18.2.0)
       '@emotion/styled': 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.14)(react@18.2.0)
       '@mui/private-theming': 5.13.7(@types/react@18.2.14)(react@18.2.0)
-      '@mui/styled-engine': /@mui/styled-engine-sc@5.14.7(@types/styled-components@5.1.26)(styled-components@5.3.11)
+      '@mui/styled-engine': /@mui/styled-engine-sc@5.14.8(@types/styled-components@5.1.26)(styled-components@5.3.11)
       '@mui/types': 7.2.4(@types/react@18.2.14)
       '@mui/utils': 5.13.7(react@18.2.0)
       '@types/react': 18.2.14
@@ -5517,6 +5520,24 @@ packages:
     resolution: {integrity: sha512-Vs3nOSAnYftqOCg034Ostp/uSqWlQg5ryLIzcOrm8+O43s4M+Ew4GQAuemIH7ZDB8dek6h61zzWI3ujd8FH3NA==}
     dependencies:
       '@0no-co/graphql.web': 1.0.4(graphql@16.7.1)
+      wonka: 6.3.2
+    transitivePeerDependencies:
+      - graphql
+    dev: false
+
+  /@urql/core@4.1.2(graphql@16.7.1):
+    resolution: {integrity: sha512-K+JA5dxEjY7Jkt1hV8G2ShkuOscKS/r+8QnXDDxTkyMzZzviYqz5f/zxgSElObT/QSW17xCC1LFl+kwiyX5opg==}
+    dependencies:
+      '@0no-co/graphql.web': 1.0.4(graphql@16.7.1)
+      wonka: 6.3.2
+    transitivePeerDependencies:
+      - graphql
+    dev: false
+
+  /@urql/exchange-auth@2.1.6(graphql@16.7.1):
+    resolution: {integrity: sha512-snOlt7p5kYq0KnPDuXkKe2qW3/BucQZOElvTeo3svLQuk9JiNJVnm6ffQ6QGiGO+G3AtMrctnno1+X44fLtDuQ==}
+    dependencies:
+      '@urql/core': 4.1.2(graphql@16.7.1)
       wonka: 6.3.2
     transitivePeerDependencies:
       - graphql

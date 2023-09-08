@@ -4,7 +4,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import GroupsIcon from "@mui/icons-material/Groups";
 import HistoryIcon from "@mui/icons-material/History";
 import QuizIcon from "@mui/icons-material/Quiz";
-import SettingsIcon from "@mui/icons-material/Settings";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import {
   Collapse,
@@ -29,11 +28,6 @@ const AdminSidebar = () => {
   };
 
   const adminColumn = [
-    {
-      text: "SETTINGS",
-      icon: <SettingsIcon />,
-      onClick: onclick("/admin/settings"),
-    },
     {
       text: "TEAMS",
       icon: <GroupsIcon />,
