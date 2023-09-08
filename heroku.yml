@@ -1,0 +1,13 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web: server/Dockerfile
+release:
+  image: web
+  command:
+    - pnpm prisma migrate dev
+run:
+  web: pnpm start:prod
