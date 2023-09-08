@@ -73,7 +73,7 @@ const Scoreboard = () => {
               <TableHead>
                 <TableRow>
                   <TableCell sx={{ color: "white" }} />
-                  {problems.map((problem) => (
+                  {problems.map((problem: any) => (
                     <TableCell
                       key={`problem-${problem.id}`}
                       sx={{ color: "white" }}
@@ -84,10 +84,10 @@ const Scoreboard = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {teams.map((team) => (
+                {teams.map((team: any) => (
                   <TableRow key={`team-${team.id}`}>
                     <TableCell sx={{ color: "white" }}>{team.name}</TableCell>
-                    {problems.map((problem) => (
+                    {problems.map((problem: any) => (
                       <TableCell
                         key={`status-${problem.id}`}
                         align="center"
@@ -96,7 +96,7 @@ const Scoreboard = () => {
                         <StatusIcon
                           status={
                             dashBoard.findLast(
-                              (d) =>
+                              (d: any) =>
                                 d.problem.id === problem.id &&
                                 d.team.id === team.id,
                             )?.status ?? "nothing"

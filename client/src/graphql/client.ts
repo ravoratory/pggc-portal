@@ -9,7 +9,7 @@ import { Client, cacheExchange, fetchExchange } from "urql";
  */
 const useClient = (options?: RequestInit) => {
   const { data: session } = useSession();
-  const token = session?.accessToken;
+  const token = (session as any)?.accessToken;
   // const handleError = useErrorHandler();
 
   return useMemo(() => {

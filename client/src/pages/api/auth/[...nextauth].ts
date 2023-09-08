@@ -48,16 +48,17 @@ const authOptions = (
         },
       );
       const data = await response.json();
-      account.accessToken = data.data.loginWithToken.access_token;
-      account.team = data.data.loginWithToken.user.team;
-      account.role = data.data.loginWithToken.user.role.toLowerCase();
-
+      if (account) {
+        account.accessToken = data.data.loginWithToken.access_token;
+        account.team = data.data.loginWithToken.user.team;
+        account.role = data.data.loginWithToken.user.role.toLowerCase();
+      }
       console.log(account, user);
       return true;
     },
     async jwt({ token, account, profile }) {
       if (account) {
-        token.accessToken = account.accessToken;
+        token.accessToken = account.accessToken as string;
         token.role = account.role;
         token.team = account.team;
       }
@@ -65,8 +66,8 @@ const authOptions = (
     },
     async session({ session, token, user }) {
       session.accessToken = token.accessToken;
-      session.user.role = token.role;
-      session.user.team = token.team;
+      session.user.role = token.role as string;
+      session.user.team = token.team as any;
       console.log(session, token, user);
       return session;
     },

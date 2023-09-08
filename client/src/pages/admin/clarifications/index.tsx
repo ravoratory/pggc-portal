@@ -80,7 +80,7 @@ const AdminClar = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {clars.map((clar) => (
+              {clars.map((clar: any) => (
                 <TableRow key={clar.id}>
                   <TableCell sx={{ color: "white" }}>{clar.id}</TableCell>
                   <TableCell

@@ -58,8 +58,8 @@ const AdminProblem = () => {
     });
     router.push("/admin/submissions");
   };
-  const problems = data?.data.problems ?? [];
-  const teams = data?.data.teams ?? [];
+  const problems = data?.data?.problems ?? [];
+  const teams = data?.data?.teams ?? [];
   console.log(problems, teams);
   return (
     <main>
@@ -77,7 +77,7 @@ const AdminProblem = () => {
             onChange={({ target }) => setProblemId(Number(target.value))}
             sx={{ backgroundColor: "white" }}
           >
-            {problems.map((problem) => (
+            {problems.map((problem: any) => (
               <MenuItem key={`problem-${problem.id}`} value={problem.id}>
                 {problem.title}
               </MenuItem>
@@ -90,7 +90,7 @@ const AdminProblem = () => {
             onChange={({ target }) => setTeamId(Number(target.value))}
             sx={{ backgroundColor: "white" }}
           >
-            {teams.map((team) => (
+            {teams.map((team: any) => (
               <MenuItem key={`team-${team.id}`} value={team.id}>
                 {team.name}
               </MenuItem>

@@ -9,7 +9,14 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import {
+  JSXElementConstructor,
+  PromiseLikeOfReactNode,
+  ReactElement,
+  ReactNode,
+  ReactPortal,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { gql, useMutation, useQuery } from "urql";
 
@@ -84,11 +91,25 @@ const AdminProblem = () => {
             onChange={({ target }) => setProblemId(Number(target.value))}
             sx={{ backgroundColor: "white" }}
           >
-            {problems.map((problem) => (
-              <MenuItem key={`problem-${problem.id}`} value={problem.id}>
-                {problem.title}
-              </MenuItem>
-            ))}
+            {problems.map(
+              (problem: {
+                id: string | number | readonly string[] | undefined;
+                title:
+                  | string
+                  | number
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  | PromiseLikeOfReactNode
+                  | null
+                  | undefined;
+              }) => (
+                <MenuItem key={`problem-${problem.id}`} value={problem.id}>
+                  {problem.title}
+                </MenuItem>
+              ),
+            )}
           </Select>
           <Select
             id="select-team"
@@ -97,11 +118,25 @@ const AdminProblem = () => {
             onChange={({ target }) => setTeamId(Number(target.value))}
             sx={{ backgroundColor: "white" }}
           >
-            {teams.map((team) => (
-              <MenuItem key={`team-${team.id}`} value={team.id}>
-                {team.name}
-              </MenuItem>
-            ))}
+            {teams.map(
+              (team: {
+                id: string | number | readonly string[] | undefined;
+                name:
+                  | string
+                  | number
+                  | boolean
+                  | ReactElement<any, string | JSXElementConstructor<any>>
+                  | Iterable<ReactNode>
+                  | ReactPortal
+                  | PromiseLikeOfReactNode
+                  | null
+                  | undefined;
+              }) => (
+                <MenuItem key={`team-${team.id}`} value={team.id}>
+                  {team.name}
+                </MenuItem>
+              ),
+            )}
           </Select>
           <TextField
             id="question"

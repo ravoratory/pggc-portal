@@ -70,12 +70,12 @@ const AdminTeam = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {teams.map((team) => (
+              {teams.map((team: any) => (
                 <TableRow key={team.id}>
                   <TableCell sx={{ color: "white" }}>{team.id}</TableCell>
                   <TableCell sx={{ color: "white" }}>{team.name}</TableCell>
                   <TableCell sx={{ color: "white" }}>
-                    {team.members.map((member) => member.userid).join(",")}
+                    {team.members.map((member: any) => member.userid).join(",")}
                   </TableCell>
                 </TableRow>
               ))}

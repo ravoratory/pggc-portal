@@ -56,7 +56,7 @@ const Clar = () => {
         <title>clarifications</title>
       </Head>
       <Container>
-        <Sidebar admin={session.user?.role !== "admin"} />
+        <Sidebar admin={session.user?.role!== "admin"} />
         <RightColumn>
           <h1>CLARIFICATIONS</h1>
           <Button
@@ -77,7 +77,7 @@ const Clar = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {clars.map((clar) => (
+              {clars.map((clar: any) => (
                 <TableRow key={clar.id}>
                   <TableCell sx={{ color: "white" }}>{clar.id}</TableCell>
                   <TableCell

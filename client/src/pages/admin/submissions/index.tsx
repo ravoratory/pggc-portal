@@ -79,7 +79,7 @@ const AdminHistorie = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {histories.map((history) => (
+              {histories.map((history: any) => (
                 <TableRow key={history.id}>
                   <TableCell sx={{ color: "white" }}>{history.id}</TableCell>
                   <TableCell sx={{ color: "white" }}>

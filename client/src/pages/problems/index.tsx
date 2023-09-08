@@ -30,7 +30,7 @@ const Problems = () => {
     },
   });
   const [level, setLevel] = useState<string>("tutorial");
-  const handleChange = (event, newValue: string) => {
+  const handleChange = (event: any, newValue: string) => {
     setLevel(newValue);
   };
   const [result, reexecuteQuery] = useQuery({
@@ -44,8 +44,10 @@ const Problems = () => {
     (d) => ({
       diff: d,
       solved:
-        problems.filter((p) => p.difficulty === d).every((p) => p.isSolved) &&
-        problems.some((p) => p.difficulty === d),
+        problems
+          .filter((p: any) => p.difficulty === d)
+          .every((p: any) => p.isSolved) &&
+        problems.some((p: any) => p.difficulty === d),
     }),
   );
   return (
@@ -77,9 +79,10 @@ const Problems = () => {
             {!fetching &&
               problems
                 .filter(
-                  (p) => p.difficulty.toLowerCase() === level.toLowerCase(),
+                  (p: any) =>
+                    p.difficulty.toLowerCase() === level.toLowerCase(),
                 )
-                .map((p) => (
+                .map((p: any) => (
                   <ProblemCard
                     key={p.title}
                     title={p.title}

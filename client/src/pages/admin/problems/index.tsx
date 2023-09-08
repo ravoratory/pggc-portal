@@ -67,7 +67,7 @@ const Adminproblem = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {problems.map((problem) => (
+              {problems.map((problem: any) => (
                 <TableRow key={problem.id}>
                   <TableCell sx={{ color: "white" }}>{problem.id}</TableCell>
                   <TableCell sx={{ color: "white" }}>{problem.title}</TableCell>
