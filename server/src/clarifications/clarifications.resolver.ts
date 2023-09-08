@@ -46,6 +46,9 @@ export class ClarificationsResolver {
         id: clarificationId,
         teamId: user.role === "Admin" ? undefined : user.team.id,
       },
+      include: {
+        team: true, problem: true
+      }
     });
   }
 
@@ -79,18 +82,7 @@ export class ClarificationsResolver {
         id: input.id,
       },
       data: {
-        question: input.question,
         answer: input.answer,
-        team: {
-          connect: {
-            id: input.teamId,
-          },
-        },
-        problem: {
-          connect: {
-            id: input.problemId,
-          },
-        },
         isPublic: input.isPublic,
       },
     });

@@ -5,16 +5,16 @@ export class UpdateClarificationInput {
   @Field({ nullable: false })
   id: number;
 
-  @Field({ nullable: false })
+  @Field({ nullable: true })
   question: string;
 
   @Field({ nullable: true })
   answer?: string;
 
-  @Field(() => Int, { nullable: false })
+  @Field(() => Int, { nullable: true })
   teamId: number;
 
-  @Field(() => Int, { nullable: false })
+  @Field(() => Int, { nullable: true })
   problemId: number;
 
   @Field({ nullable: false })

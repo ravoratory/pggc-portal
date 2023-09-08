@@ -13,10 +13,10 @@ export class ClarificationModel {
   @Field(() => String)
   answer?: string;
 
-  @Field(() => Team)
+  @Field(() => Team, {nullable: true})
   team: Team;
 
-  @Field(() => Problem)
+  @Field(() => Problem, {nullable: true})
   problem: Problem;
 
   @Field(() => Boolean)

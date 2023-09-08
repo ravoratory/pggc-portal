@@ -2,8 +2,6 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
-  MenuItem,
-  Select,
   TextField,
 } from "@mui/material";
 import Head from "next/head";
@@ -18,21 +16,27 @@ import { gql, useMutation, useQuery } from "urql";
 import Sidebar from "@/components/orgranisms/sidebar";
 
 const getInfo = gql`
-  query {
-    teams {
+  query ($clarificationId: Int!) {
+    clarification(clarificationId: $clarificationId) {
       id
-      name
-    }
-    problems {
-      id
-      title
+      team {
+        id
+        name
+      }
+      problem {
+        id
+        title
+      }
+      question
+      answer
+      isPublic
     }
   }
 `;
 
-const createClarification = gql`
-  mutation createClarification($input: CreateClarificationInput!) {
-    createClarification(input: $input) {
+const updateClarification = gql`
+  mutation updateClarification($input: UpdateClarificationInput!) {
+    updateClarification(input: $input) {
       id
     }
   }
@@ -49,27 +53,25 @@ const AdminProblem = () => {
 
   const [data, reexecute] = useQuery({
     query: getInfo,
+    variables: { clarificationId: Number(router.query.id)},
   });
-  const [result, setClar] = useMutation(createClarification);
+  const [result, setClar] = useMutation(updateClarification);
 
-  const [teamId, setTeamId] = useState<number>(0);
-  const [problemId, setProblemId] = useState<number>(0);
-  const [question, setQuestion] = useState<string>("");
-  const [isPublic, setIsPublic] = useState<boolean>(false);
+  const [answer, setAnswer] = useState<string>(data?.data?.clarification.answer);
+  const [isPublic, setIsPublic] = useState<boolean>(
+    data?.data?.clarification.isPublic ?? false,
+  );
   const handleSubmit = () => {
     setClar({
       input: {
-        teamId,
-        problemId,
-        question,
+        id: Number(router.query.id),
+        answer,
         isPublic,
       },
     });
     router.push("/admin/clarifications");
   };
-  const problems = data?.data?.problems ?? [];
-  const teams = data?.data?.teams ?? [];
-  console.log(problems, teams);
+
   return (
     <main>
       <Head>
@@ -79,49 +81,19 @@ const AdminProblem = () => {
         <Sidebar admin={session?.user?.role === "admin"} />
         <RightColumn>
           <h1>Create Clarification</h1>
-          <Select
-            id="select-problem"
-            value={problemId}
-            label="TeamID"
-            onChange={({ target }) => setProblemId(Number(target.value))}
-          >
-            {problems.map(
-              (problem: {
-                id: string | number | readonly string[] | undefined;
-                title: string
-              }) => (
-                <MenuItem key={`problem-${problem.id}`} value={problem.id}>
-                  {problem.title}
-                </MenuItem>
-              ),
-            )}
-          </Select>
-          <Select
-            id="select-team"
-            value={teamId}
-            label="TeamID"
-            onChange={({ target }) => setTeamId(Number(target.value))}
-          >
-            {teams.map(
-              (team: {
-                id: string | number | readonly string[] | undefined;
-                name: string
-              }) => (
-                <MenuItem key={`team-${team.id}`} value={team.id}>
-                  {team.name}
-                </MenuItem>
-              ),
-            )}
-          </Select>
+          <h2>From: {data?.data?.clarification.team.name}</h2>
+          <h2>About: {data?.data?.clarification.problem.title}</h2>
+          <h2>Question:</h2>
+          <p>{data?.data?.clarification.question}</p>
           <TextField
-            id="question"
-            label="Question"
+            id="answer"
+            label="Answer"
             variant="filled"
             multiline
             rows={16}
-            value={question}
+            value={answer}
             onChange={({ target }) => {
-              setQuestion(target.value);
+              setAnswer(target.value);
             }}
           />
           <FormControlLabel
@@ -137,7 +109,7 @@ const AdminProblem = () => {
             label="isPublic"
           />
           <Button onClick={handleSubmit} type="button">
-            追加
+            更新
           </Button>
         </RightColumn>
       </Container>

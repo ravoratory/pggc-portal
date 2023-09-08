@@ -88,7 +88,7 @@ const AdminProblem = () => {
             {problems.map(
               (problem: {
                 id: string | number | readonly string[] | undefined;
-                title: string
+                title: string;
               }) => (
                 <MenuItem key={`problem-${problem.id}`} value={problem.id}>
                   {problem.title}
@@ -105,7 +105,7 @@ const AdminProblem = () => {
             {teams.map(
               (team: {
                 id: string | number | readonly string[] | undefined;
-                name: string
+                name: string;
               }) => (
                 <MenuItem key={`team-${team.id}`} value={team.id}>
                   {team.name}
