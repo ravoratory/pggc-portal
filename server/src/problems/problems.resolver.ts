@@ -21,7 +21,7 @@ export class ProblemsResolver {
       Date.now().toLocaleString("JST") >=
       new Date("2023/09/09 13:00").toLocaleString("JST");
     let problems: Problem[];
-    if (started || user.role === "Admin") {
+    if (true || user.role === "Admin") {
       problems = await this.prismaService.problem.findMany();
     } else {
       problems = await this.prismaService.problem.findMany({
