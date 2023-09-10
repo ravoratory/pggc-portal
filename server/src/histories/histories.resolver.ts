@@ -146,11 +146,13 @@ export class HistoriesResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [HistoryModel])
   async rankingBoard() {
-    return await this.prismaService.history.aggregate({
+    const ranking = await this.prismaService.history.groupBy({
+      by: ["teamId"],
       _sum: {
         score: true,
       }
-    })
+    });
+    return ranking
   }
 
   @UseGuards(JwtAuthGuard)
