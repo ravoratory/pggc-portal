@@ -134,9 +134,6 @@ export class HistoriesResolver {
   async dashBoard() {
     return this.prismaService.history.findMany({
       where: {
-        createdAt: {
-          lte: new Date("2023/09/09 7:00:00"),
-        },
         OR: [{ status: "correct" }, { status: "partial" }],
       },
       include: {
@@ -149,13 +146,9 @@ export class HistoriesResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [HistoryModel])
   async rankingBoard() {
-    const ranking = await this.prismaService.history.groupBy({
-      by: ["teamId", "score"],
+    const ranking = await this.prismaService.history.aggregate({
       _sum: {
         score: true,
-      },
-      orderBy: {
-        score: "desc",
       }
     })
     return ranking;
