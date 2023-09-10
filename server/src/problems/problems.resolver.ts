@@ -22,7 +22,11 @@ export class ProblemsResolver {
       new Date("2023/09/09 13:00").toLocaleString("JST");
     let problems: Problem[];
     if (true || user.role === "Admin") {
-      problems = await this.prismaService.problem.findMany();
+      problems = await this.prismaService.problem.findMany({
+        orderBy: {
+          id: "asc"
+        }
+      });
     } else {
       problems = await this.prismaService.problem.findMany({
         where: {
