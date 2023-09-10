@@ -132,7 +132,7 @@ export class HistoriesResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [HistoryModel])
   async dashBoard() {
-    return this.prismaService.history.findMany({
+    return await this.prismaService.history.findMany({
       where: {
         OR: [{ status: "correct" }, { status: "partial" }],
       },
@@ -146,12 +146,11 @@ export class HistoriesResolver {
   @UseGuards(JwtAuthGuard)
   @Query(() => [HistoryModel])
   async rankingBoard() {
-    const ranking = await this.prismaService.history.aggregate({
+    return await this.prismaService.history.aggregate({
       _sum: {
         score: true,
       }
     })
-    return ranking;
   }
 
   @UseGuards(JwtAuthGuard)
