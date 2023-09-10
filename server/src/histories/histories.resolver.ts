@@ -152,7 +152,10 @@ export class HistoriesResolver {
         score: true,
       }
     });
-    return ranking
+    return ranking.map((r: { score?: number, _sum: any }) => {
+      r.score = r._sum.score;
+      return r;
+    })
   }
 
   @UseGuards(JwtAuthGuard)
